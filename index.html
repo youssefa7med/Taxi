@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI POST Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #e1e1e1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Submit Trip Data</h2>
+    <div class="form-group">
+        <label for="vendorid">Vendor ID:</label>
+        <input type="number" id="vendorid" placeholder="Enter Vendor ID">
+    </div>
+    <div class="form-group">
+        <label for="passenger_count">Passenger Count:</label>
+        <input type="number" id="passenger_count" placeholder="Enter Passenger Count">
+    </div>
+    <div class="form-group">
+        <label for="pulocationid">PU Location ID:</label>
+        <input type="number" id="pulocationid" placeholder="Enter PU Location ID">
+    </div>
+    <div class="form-group">
+        <label for="dolocationid">DO Location ID:</label>
+        <input type="number" id="dolocationid" placeholder="Enter DO Location ID">
+    </div>
+    <div class="form-group">
+        <label for="payment_type">Payment Type:</label>
+        <input type="number" id="payment_type" placeholder="Enter Payment Type">
+    </div>
+    <div class="form-group">
+        <label for="day">Day:</label>
+        <input type="number" id="day" placeholder="Enter Day">
+    </div>
+    <button onclick="fetchData()">Submit</button>
+    
+    <h3>Response:</h3>
+    <pre id="response"></pre>
+</div>
+
+<script>
+    async function fetchData() {
+        const vendorid = document.getElementById('vendorid').value;
+        const passenger_count = document.getElementById('passenger_count').value;
+        const pulocationid = document.getElementById('pulocationid').value;
+        const dolocationid = document.getElementById('dolocationid').value;
+        const payment_type = document.getElementById('payment_type').value;
+        const day = document.getElementById('day').value;
+
+        const data = {
+            vendorid: parseInt(vendorid),
+            passenger_count: parseInt(passenger_count),
+            pulocationid: parseInt(pulocationid),
+            dolocationid: parseInt(dolocationid),
+            payment_type: parseInt(payment_type),
+            day: parseInt(day)
+        };
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/receive_data', { // Updated URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+        } catch (error) {
+            document.getElementById('response').innerText = `Error: ${error.message}`;
+        }
+    }
+</script>
+
+</body>
+</html>
