@@ -9,7 +9,7 @@ Welcome to **Taxi Full Project Analysis & ML**! This project provides an in-dept
 
 Explore the full capabilities of **Taxi Full Project Analysis & ML** through the following links:
 
-- **Interactive Web Application**: [Taxi NYC App](https://taxi-nyc.streamlit.app/)
+- **Interactive Web Application**: [Taxi NYC App](https://nyc-taxi.streamlit.app/)
 - **Fare Prediction Tool**: [Yellow Taxi Assistant](https://yellowtaxiassistant.netlify.app/)
 
 ## 📊 Overview
